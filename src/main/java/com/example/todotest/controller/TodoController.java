@@ -1,8 +1,8 @@
 package com.example.todotest.controller;
 
 import com.example.todotest.model.Todo;
-import com.example.todotest.model.TodoRequest;
-import com.example.todotest.model.TodoResponse;
+import com.example.todotest.dto.TodoRequest;
+import com.example.todotest.dto.TodoResponse;
 import com.example.todotest.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

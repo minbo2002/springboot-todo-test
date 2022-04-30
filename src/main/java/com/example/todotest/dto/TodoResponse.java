@@ -1,5 +1,6 @@
-package com.example.todotest.model;
+package com.example.todotest.dto;
 
+import com.example.todotest.model.Todo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

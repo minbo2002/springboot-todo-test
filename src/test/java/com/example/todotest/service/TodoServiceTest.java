@@ -1,7 +1,7 @@
 package com.example.todotest.service;
 
 import com.example.todotest.model.Todo;
-import com.example.todotest.model.TodoRequest;
+import com.example.todotest.dto.TodoRequest;
 import com.example.todotest.repository.TodoRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
