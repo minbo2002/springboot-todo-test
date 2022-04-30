@@ -1,12 +1,10 @@
 package com.example.todotest.controller;
 
-import com.example.todotest.model.TodoEntity;
+import com.example.todotest.model.Todo;
 import com.example.todotest.model.TodoRequest;
 import com.example.todotest.model.TodoResponse;
 import com.example.todotest.service.TodoService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +33,7 @@ public class TodoController {
         if(ObjectUtils.isEmpty(request.getCompleted()))  // request에서 completed가 없으면 default값인 false를 내려주는 용도
             request.setCompleted(false);
 
-        TodoEntity result = this.todoService.add(request);  // 받은 request들을 todoService에 add
+        Todo result = this.todoService.add(request);  // 받은 request들을 todoService에 add
 
 
         return ResponseEntity.ok(new TodoResponse(result));  // result를 만들어놓은 TodoResponse 클래스에 mapping해서 내려준다.
@@ -45,7 +43,7 @@ public class TodoController {
     public ResponseEntity<TodoResponse> readOne(@PathVariable Long id) {
         System.out.println("READ ONE");
 
-        TodoEntity result = this.todoService.searchById(id);
+        Todo result = this.todoService.searchById(id);
 
         return ResponseEntity.ok(new TodoResponse(result));  // result를 만들어놓은 TodoResponse 클래스에 mapping해서 내려준다.
     }
@@ -54,7 +52,7 @@ public class TodoController {
     public ResponseEntity<List<TodoResponse>> readAll() {
         System.out.println("READ ALL");
 
-        List<TodoEntity> list = this.todoService.searchAll();
+        List<Todo> list = this.todoService.searchAll();
 
         // list를 만들어놓은 TodoResponse 클래스에 mapping
         List<TodoResponse> response = list.stream().map(TodoResponse::new)
@@ -67,7 +65,7 @@ public class TodoController {
     public ResponseEntity<TodoResponse> update(@PathVariable Long id, @RequestBody TodoRequest request) {
         System.out.println("UPDATE");
 
-        TodoEntity result = this.todoService.updateById(id, request);
+        Todo result = this.todoService.updateById(id, request);
 
 
         return ResponseEntity.ok(new TodoResponse(result));  // result를 만들어놓은 TodoResponse 클래스에 mapping해서 내려준다.

@@ -1,6 +1,6 @@
 package com.example.todotest.service;
 
-import com.example.todotest.model.TodoEntity;
+import com.example.todotest.model.Todo;
 import com.example.todotest.model.TodoRequest;
 import com.example.todotest.repository.TodoRepository;
 import org.junit.jupiter.api.Test;
@@ -25,13 +25,13 @@ class TodoServiceTest {
 
     @Test
     void add() {
-        when(this.todoRepository.save(any(TodoEntity.class)))
+        when(this.todoRepository.save(any(Todo.class)))
                 .then(AdditionalAnswers.returnsFirstArg());
 
         TodoRequest expected = new TodoRequest();
         expected.setTitle(("Test Title"));
 
-        TodoEntity actual = this.todoService.add(expected);
+        Todo actual = this.todoService.add(expected);
 
         assertEquals(expected.getTitle(), actual.getTitle());  // 넣은값이랑 실제반환한 값이랑 같은지 확인
     }
