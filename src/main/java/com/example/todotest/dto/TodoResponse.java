@@ -22,7 +22,7 @@ public class TodoResponse {
         this.id = todo.getId();
         this.title = todo.getTitle();
         this.order = todo.getOrder();
-        this.completed = todo.getComplted();
+        this.completed = todo.getCompleted();
 
         this.url = "http://localhost:8080/" + this.id;
     }

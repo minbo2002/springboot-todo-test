@@ -48,7 +48,7 @@ public class TodoServiceImpl implements TodoService{
                 .id(savedTodo.getId())
                 .title(savedTodo.getTitle())
                 .order(savedTodo.getOrder())
-                .completed(savedTodo.getComplted())
+                .completed(savedTodo.getCompleted())
                 .build();
     }
 
@@ -56,7 +56,7 @@ public class TodoServiceImpl implements TodoService{
         return Todo.builder()
                 .title(request.getTitle())
                 .order(request.getOrder())
-                .complted(request.getCompleted())
+                .completed(request.getCompleted())
                 .build();
     }
 

@@ -24,11 +24,11 @@ public class Todo {
     private Long order;
 
     @Column(nullable = false)
-    private Boolean complted;
+    private Boolean completed;
 
     public void update(TodoRequest request) {
         this.title = request.getTitle();
         this.order = request.getOrder();
-        this.complted = request.getCompleted();
+        this.completed = request.getCompleted();
     }
 }

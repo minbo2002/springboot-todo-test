@@ -30,7 +30,7 @@ class TodoRepositoryTest {
         todo = Todo.builder()
                 .title("test_title")
                 .order(1L)
-                .complted(false)
+                .completed(false)
                 .build();
     }
 
@@ -59,7 +59,7 @@ class TodoRepositoryTest {
 //        Todo todo1 = Todo.builder()
 //                .title("test_title2")
 //                .order(1L)
-//                .complted(false)
+//                .completed(false)
 //                .build();
 //
 //        List<Todo> todoList = new ArrayList<>();
@@ -70,7 +70,7 @@ class TodoRepositoryTest {
                 Todo todo1 = Todo.builder()
                 .title("test_title2_"+i)
                 .order(1L)
-                .complted(false)
+                .completed(false)
                 .build();
             todoRepository.save(todo1);
         });
@@ -130,7 +130,7 @@ class TodoRepositoryTest {
             Todo todo1 = Todo.builder()
                     .title("test_title2_"+i)
                     .order(1L)
-                    .complted(false)
+                    .completed(false)
                     .build();
             todoRepository.save(todo1);
         });
