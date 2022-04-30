@@ -16,7 +16,7 @@ public class TodoResponse {
     private Boolean completed;
     private String url;
 
-    public TodoResponse(Todo todo) {  // TodoEntity 클래스를 파라미터로 하는 TodoResponse 생성자
+    public TodoResponse(Todo todo) {
         this.id = todo.getId();
         this.title = todo.getTitle();
         this.order = todo.getOrder();

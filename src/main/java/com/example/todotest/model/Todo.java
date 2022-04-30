@@ -1,20 +1,21 @@
 package com.example.todotest.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.todotest.dto.TodoRequest;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@ToString
 public class Todo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // GenerationType.IDENTITY : MySQL or MariaDB에서 사용
-    private Long id;                                   // GenerationType.SEQUENCE : Oracle에서 사용
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String title;
@@ -24,4 +25,10 @@ public class Todo {
 
     @Column(nullable = false)
     private Boolean complted;
+
+    public void update(TodoRequest request) {
+        this.title = request.getTitle();
+        this.order = request.getOrder();
+        this.complted = request.getCompleted();
+    }
 }

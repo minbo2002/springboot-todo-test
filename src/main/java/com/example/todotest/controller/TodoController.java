@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin  // CORS 이슈 막기위해 사용
+@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/")
 public class TodoController {
@@ -22,21 +22,20 @@ public class TodoController {
 
     @PostMapping
     public ResponseEntity<TodoResponse> create(@RequestBody TodoRequest request) {
-        // ResponseEntity 클래스 : 스프링 프레임워크에서 제공하는 HttpEntity 클래스를 상속받아 구현한 클래스
 
-        if(ObjectUtils.isEmpty(request.getTitle()))   // request에서 title이 없을경우 잘못된응답을 내려주는 용도
+        if(ObjectUtils.isEmpty(request.getTitle()))
             return ResponseEntity.badRequest().build();
 
-        if(ObjectUtils.isEmpty(request.getOrder()))  // request에서 order가 없을경우 default값인 0L을 내려주는 용도
+        if(ObjectUtils.isEmpty(request.getOrder()))
             request.setOrder(0L);
 
-        if(ObjectUtils.isEmpty(request.getCompleted()))  // request에서 completed가 없으면 default값인 false를 내려주는 용도
+        if(ObjectUtils.isEmpty(request.getCompleted()))
             request.setCompleted(false);
 
-        Todo result = this.todoService.add(request);  // 받은 request들을 todoService에 add
+        Todo result = this.todoService.add(request);
 
 
-        return ResponseEntity.ok(new TodoResponse(result));  // result를 만들어놓은 TodoResponse 클래스에 mapping해서 내려준다.
+        return ResponseEntity.ok(new TodoResponse(result));
     }
 
     @GetMapping("{id}")
@@ -45,7 +44,7 @@ public class TodoController {
 
         Todo result = this.todoService.searchById(id);
 
-        return ResponseEntity.ok(new TodoResponse(result));  // result를 만들어놓은 TodoResponse 클래스에 mapping해서 내려준다.
+        return ResponseEntity.ok(new TodoResponse(result));
     }
 
     @GetMapping
@@ -54,21 +53,20 @@ public class TodoController {
 
         List<Todo> list = this.todoService.searchAll();
 
-        // list를 만들어놓은 TodoResponse 클래스에 mapping
         List<TodoResponse> response = list.stream().map(TodoResponse::new)
                                             .collect(Collectors.toList());
 
-        return ResponseEntity.ok(response);  // response를 스프링 프레임워크에서 제공하는 ResponseEntity 클래스에 mapping해서 내려준다.
+        return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("{id}")
+    @PutMapping("{id}")
     public ResponseEntity<TodoResponse> update(@PathVariable Long id, @RequestBody TodoRequest request) {
         System.out.println("UPDATE");
 
         Todo result = this.todoService.updateById(id, request);
 
 
-        return ResponseEntity.ok(new TodoResponse(result));  // result를 만들어놓은 TodoResponse 클래스에 mapping해서 내려준다.
+        return ResponseEntity.ok(new TodoResponse(result));
     }
 
     @DeleteMapping("{id}")
