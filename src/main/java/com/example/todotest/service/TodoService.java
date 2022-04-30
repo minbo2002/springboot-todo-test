@@ -10,11 +10,11 @@ public interface TodoService {
 
     TodoResponse add(TodoRequest request);
 
-    Todo searchById(Long id);
+    TodoResponse searchById(Long id);
 
-    List<Todo> searchAll();
+    List<TodoResponse> searchAll();
 
-    Todo updateById(Long id, TodoRequest request);
+    TodoResponse updateById(Long id, TodoRequest request);
 
     void deleteById(Long id);
 

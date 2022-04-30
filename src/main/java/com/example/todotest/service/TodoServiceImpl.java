@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,25 +61,31 @@ public class TodoServiceImpl implements TodoService{
     }
 
     @Override
-    public Todo searchById(Long id) {
+    public TodoResponse searchById(Long id) {
 
-        return todoRepository.findById(id)
+        Todo todo = todoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return mapToDto(todo);
     }
 
     @Override
-    public List<Todo> searchAll() {
-        return todoRepository.findAll() ;
+    public List<TodoResponse> searchAll() {
+        List<Todo> todos = todoRepository.findAll();
+        return todos.stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Todo updateById(Long id, TodoRequest request) {
+    public TodoResponse updateById(Long id, TodoRequest request) {
 
-        Todo todo = this.searchById(id);
-
+        Todo todo = todoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         todo.update(request);
+        Todo savedTodo = this.todoRepository.save(todo);
 
-        return this.todoRepository.save(todo);
+        return mapToDto(savedTodo);
     }
 
     @Override
