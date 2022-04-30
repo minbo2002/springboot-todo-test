@@ -5,6 +5,7 @@ import com.example.todotest.dto.TodoRequest;
 import com.example.todotest.dto.TodoResponse;
 import com.example.todotest.service.TodoService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +13,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
-@RequestMapping("/")
+@RequestMapping("/todo")
 public class TodoController {
 
     private final TodoService todoService;
 
     @PostMapping
     public ResponseEntity<TodoResponse> create(@RequestBody TodoRequest request) {
+
+        log.info("create");
 
         if(ObjectUtils.isEmpty(request.getTitle()))
             return ResponseEntity.badRequest().build();
@@ -40,7 +44,7 @@ public class TodoController {
 
     @GetMapping("{id}")
     public ResponseEntity<TodoResponse> readOne(@PathVariable Long id) {
-        System.out.println("READ ONE");
+        log.info("READ ONE");
 
         Todo result = this.todoService.searchById(id);
 
@@ -49,7 +53,7 @@ public class TodoController {
 
     @GetMapping
     public ResponseEntity<List<TodoResponse>> readAll() {
-        System.out.println("READ ALL");
+        log.info("READ ALL");
 
         List<Todo> list = this.todoService.searchAll();
 
@@ -61,7 +65,7 @@ public class TodoController {
 
     @PutMapping("{id}")
     public ResponseEntity<TodoResponse> update(@PathVariable Long id, @RequestBody TodoRequest request) {
-        System.out.println("UPDATE");
+        log.info("UPDATE");
 
         Todo result = this.todoService.updateById(id, request);
 
@@ -71,7 +75,7 @@ public class TodoController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteOne(@PathVariable Long id) {
-        System.out.println("DEETE ONE");
+        log.info("DEETE ONE");
 
         this.todoService.deleteById(id);
 
@@ -80,7 +84,7 @@ public class TodoController {
 
     @DeleteMapping
     public ResponseEntity<?> deleteAll() {
-        System.out.println("DELETE ALL");
+        log.info("DELETE ALL");
 
         this.todoService.deleteAll();
 
