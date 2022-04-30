@@ -30,7 +30,7 @@ class TodoServiceTest {
     private TodoRepository todoRepository;
 
     @InjectMocks
-    private TodoService todoService;
+    private TodoServiceImpl todoService;
 
     private Todo todo;
 
