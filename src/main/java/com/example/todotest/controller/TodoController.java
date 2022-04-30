@@ -1,13 +1,12 @@
 package com.example.todotest.controller;
 
-import com.example.todotest.model.Todo;
 import com.example.todotest.dto.TodoRequest;
 import com.example.todotest.dto.TodoResponse;
+import com.example.todotest.model.Todo;
 import com.example.todotest.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,19 +26,7 @@ public class TodoController {
 
         log.info("create");
 
-        if(ObjectUtils.isEmpty(request.getTitle()))
-            return ResponseEntity.badRequest().build();
-
-        if(ObjectUtils.isEmpty(request.getOrder()))
-            request.setOrder(0L);
-
-        if(ObjectUtils.isEmpty(request.getCompleted()))
-            request.setCompleted(false);
-
-        Todo result = this.todoService.add(request);
-
-
-        return ResponseEntity.ok(new TodoResponse(result));
+        return ResponseEntity.ok(this.todoService.add(request));
     }
 
     @GetMapping("{id}")

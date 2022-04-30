@@ -1,8 +1,12 @@
 package com.example.todotest.service;
 
+import com.example.todotest.dto.TodoResponse;
 import com.example.todotest.model.Todo;
 import com.example.todotest.dto.TodoRequest;
 import com.example.todotest.repository.TodoRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.AdditionalAnswers;
@@ -10,10 +14,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
+@Slf4j
 @ExtendWith(MockitoExtension.class)
 class TodoServiceTest {
 
@@ -23,17 +32,35 @@ class TodoServiceTest {
     @InjectMocks
     private TodoService todoService;
 
+    private Todo todo;
+
+    @BeforeEach
+    void setup() {
+        todo = Todo.builder()
+                .id(1L)
+                .title("test_title")
+                .order(1L)
+                .complted(false)
+                .build();
+    }
+
     @Test
     void add() {
         when(this.todoRepository.save(any(Todo.class)))
                 .then(AdditionalAnswers.returnsFirstArg());
 
-        TodoRequest expected = new TodoRequest();
-        expected.setTitle(("Test Title"));
+        TodoRequest todoRequest = TodoRequest.builder()
+                .title(todo.getTitle())
+                .order(todo.getOrder())
+                .completed(todo.getComplted())
+                .build();
 
-        Todo actual = this.todoService.add(expected);
+        TodoResponse todoResponse = todoService.add(todoRequest);
+        log.info("todoResponse: {}", todoResponse);
 
-        assertEquals(expected.getTitle(), actual.getTitle());  // 넣은값이랑 실제반환한 값이랑 같은지 확인
+        assertThat(todoResponse).isNotNull();
+        assertThat(todoResponse.getTitle()).isEqualTo(todoRequest.getTitle());
+
     }
 
     @Test

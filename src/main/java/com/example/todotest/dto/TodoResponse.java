@@ -2,12 +2,14 @@ package com.example.todotest.dto;
 
 import com.example.todotest.model.Todo;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class TodoResponse {
 
     private Long id;
